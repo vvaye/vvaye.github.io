@@ -1,5 +1,5 @@
 :root {
-	--width: 55%;
+	--prop-used: 55%;
 }
 
 @font-face {
@@ -45,30 +45,33 @@ p {
 	font-size: 20;
 }
 
-#happy-ice-cream {
-	/* margin: 5px;
-	padding: 5px; */
-	max-width: 7%;
-}
 div {
 	margin: 5px auto;
 	/* background-color: red; */
 	padding: 10px;
-	width: var(--width);
+	width: var(--prop-used);
 }
 
 #title {
-	width: var(--width);
+	width: var(--prop-used);
 	/* margin: 40px auto; */
 	/* background-color: aqua; */
 }
 
 /* #content {
-	width: var(--width);
+	width: var(--prop-used);
 	/* margin: auto; */
 /* background-color: violet;
 } */
 
 #tagline {
 	letter-spacing: 0.03em;
+}
+
+#happy-ice-cream {
+	/* margin: 5px;
+	padding: 5px; */
+
+	/* max-width: var(--prop-used); */
+	max-width: 30%;
 }
