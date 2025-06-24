@@ -1,0 +1,77 @@
+:root {
+	--prop-used: 55%;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: url("fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+	font-weight: 100 900;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Inter-italic";
+	src: url("fonts/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype");
+	font-weight: 100 900;
+	font-style: normal;
+}
+
+nav {
+	height: 8%;
+}
+
+body {
+	font-family: "Inter", sans-serif;
+}
+
+h1 {
+	font-weight: 300;
+	font-size: 50;
+	letter-spacing: 0.03em;
+}
+
+h2 {
+	font-weight: 300;
+	font-size: 28;
+}
+
+h3 {
+	font-weight: 350;
+	font-size: 28;
+}
+
+p {
+	font-weight: 300;
+	font-size: 20;
+}
+
+div {
+	margin: 5px auto;
+	/* background-color: red; */
+	padding: 10px;
+	width: var(--prop-used);
+}
+
+#title {
+	width: var(--prop-used);
+	/* margin: 40px auto; */
+	/* background-color: aqua; */
+}
+
+/* #content {
+	width: var(--prop-used);
+	/* margin: auto; */
+/* background-color: violet;
+} */
+
+#tagline {
+	letter-spacing: 0.03em;
+}
+
+#happy-ice-cream {
+	/* margin: 5px;
+	padding: 5px; */
+
+	/* max-width: var(--prop-used); */
+	max-width: 30%;
+}
