@@ -75,3 +75,14 @@ div {
 	/* max-width: var(--prop-used); */
 	max-width: 30%;
 }
+
+a:link {
+	color: #546e7a;
+	/* font-weight: 400; */
+	text-decoration: inherit;
+}
+
+a:hover {
+	color: #546e7a;
+	text-decoration: inherit;
+}
