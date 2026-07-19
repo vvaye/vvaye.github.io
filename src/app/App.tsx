@@ -1,12 +1,30 @@
-import { useState, useEffect, useRef } from "react";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
-import { ArrowUpRight, Menu, X, Mail } from "lucide-react";
+import { useState, useEffect } from "react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { IoMail } from "react-icons/io5";
+import { ArrowUpRight, X, Menu } from "lucide-react";
 
 const NAV_LINKS = [
 	{ label: "Projects", href: "#projects" },
-	{ label: "Photos", href: "#photos" },
-	{ label: "Resume", href: "#resume" },
+	{ label: "Experience", href: "#experience" },
+	{ label: "Thoughts", href: "#thoughts" },
+	{ label: "About", href: "#about" },
 ];
+
+const SKILLS = [
+	"Python",
+	"Typescript",
+	"Minispec",
+	"C",
+	"Assembly",
+	"SystemVerilog",
+	"Git",
+	"Teaching",
+];
+
+const GITHUB_REPO_LINKS = {
+	peep: "https://github.com/vvaye/peep",
+	r5st: "https://github.com/vvaye/R5-ST",
+};
 
 const PROJECTS = [
 	{
@@ -16,7 +34,10 @@ const PROJECTS = [
 		tags: ["FPGA", "SystemVerilog"],
 		year: "2025",
 		desc: "A quad-core processor specially designed for computer vision workloads. It takes advantage of parallel combinational memory reads and parallelizable properties of image processing tasks in its design of parallel processor cores and square memory caches. Final project for Digital Systems Laboratory I.",
-		link: "",
+		resources: [
+			{ label: "Report", href: "/assets/peep.pdf" },
+			{ label: "GitHub", href: GITHUB_REPO_LINKS.peep },
+		],
 	},
 	{
 		num: "01",
@@ -25,16 +46,21 @@ const PROJECTS = [
 		tags: ["Python", "R5", "Research"],
 		year: "2025-2026",
 		desc: "A reusable and streamlined Python toolkit that generalizes spatio-temporal accessibility analysis over population and transit data using the R5 routing engine. Presented at the 2026 TransitData conference.",
-		link: "",
+		resources: [
+			{ label: "Abstract", href: "/assets/r5st.pdf" },
+			{ label: "GitHub", href: GITHUB_REPO_LINKS.r5st },
+		],
 	},
 	{
 		num: "02",
 		key: "proj-02",
-		title: "SSP: something something near earth asteroid",
-		tags: ["Python", "Hell"],
+		title: "Orbit Determination: Near-Earth Asteroid 2005 EC224",
+		tags: ["Python", "Astrophysics"],
 		year: "2023",
-		desc: "Observations,, writing code,, orbital elements,, tbd when I dig out our old report",
-		link: "",
+		desc: `Conducted astrometry and photometry, developed Python implementations of the Method of Gauss for orbital analysis,
+			and used Monte Carlo simulations for uncertainty calculations. Final results were submitted to the Minor Planet Center
+			as part of the SSP 2023 Summer Program.`,
+		resources: [{ label: "Report", href: "/assets/ssp.pdf" }],
 	},
 ];
 
@@ -44,40 +70,88 @@ const EXPERIENCES = [
 		key: "exp-00",
 		title: "Software Engineer Intern",
 		company: "Chewy",
-		tags: ["Typescript", "React", "ERPNext"],
-		year: "2026",
-		desc: `Did some full-stack work as a member of Chewy's CPH (Chewy Partner Hub) team, an internal portal for vendor onboarding. 
-				Built a new Vendor Resources Center, a repository for all vendor-related files. Implemented the full stack ??`,
+		tags: ["Typescript", "React", "ERPNext", "Git"],
+		year: "Summer 2026",
+		desc: `As an intern on Chewy's CPH (Chewy Partner Hub) team, I'm currently building a new Vendor Resources Center, a centralized hub
+			for vendor documentation within Chewy's internal vendor onboarding platform. I'm implementing the feature across the full
+			stack, developing React frontend components, Python backend APIs, and the underlying business logic.`,
 	},
 	{
 		num: "01",
 		key: "exp-01",
+		title: "Lab Assistant: Intro to Programming in C & Assembly",
+		company: "MIT Department of EECS",
+		tags: ["C", "Assembly", "Teaching"],
+		year: "Spring 2026",
+		desc: `I assisted students in weekly hands-on labs involving programming ESP32 microcontrollers and answered conceptual questions
+				 on pointers and memory systems.`,
+	},
+	{
+		num: "02",
+		key: "exp-02",
 		title: "Student Researcher",
 		company: "MIT Zardini Lab",
-		tags: ["Python", "R5", "Research"],
+		tags: ["Python", "R5", "Research", "High-Performance Computing"],
 		year: "2025-2026",
 		desc: (
 			<>
-				Worked on{" "}
+				I spent one summer and two semesters conducting research with
+				the Zardini lab. What began as a summer (2025) UROP benchmarking
+				a transit routing engine eventually turned into a larger
+				project,{" "}
 				<a
 					href="#proj-01"
-					className="underline underline-offset-2 hover:opacity-70 transition-opacity"
+					className="font-[400] underline decoration-1 underline-offset-2 hover:opacity-70 transition-opacity"
 				>
 					R5-ST
-				</a>{" "}
-				ina summer urop!
+				</a>
+				{", "}
+				which I was then able to present at my first conference (summer
+				2026).
 			</>
 		),
+	},
+	{
+		num: "03",
+		key: "exp-03",
+		title: "Lab Assistant: Computation Structures",
+		company: "MIT Department of EECS",
+		tags: ["Minispec", "Digital Systems", "Processor Design", "Teaching"],
+		year: "Fall 2025",
+		desc: `Guided ~100 students through debugging complex Minispec labs during office hours. Helped students 
+		understand digital system design, finite state machines, and processor datapaths.`,
 	},
 ];
 
 export default function App() {
 	const [activeSection, setActiveSection] = useState("");
 	const [scrolled, setScrolled] = useState(false);
+	const [menuOpen, setMenuOpen] = useState(false);
+
+	useEffect(() => {
+		const handleScroll = () => {
+			setScrolled(window.scrollY > 40);
+
+			const sections = NAV_LINKS.map((l) => l.href.slice(1));
+			let current = "";
+			for (const id of sections) {
+				const el = document.getElementById(id);
+				if (el && window.scrollY >= el.offsetTop - 120) current = id;
+			}
+
+			setActiveSection(current);
+		};
+
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
 
 	const scrollTo = (href: string) => {
 		{
-			/*TBD*/
+			setMenuOpen(false);
+			const id = href.slice(1);
+			const el = document.getElementById(id);
+			if (el) el.scrollIntoView({ behavior: "smooth" });
 		}
 	};
 
@@ -119,8 +193,36 @@ export default function App() {
 						))}
 					</div>
 
-					{/** Stuff for the mobile menu goes here */}
+					{/* Mobile menu button */}
+					<button
+						className="md:hidden opacity-70 hover:opacity-100 transition-opacity"
+						onClick={() => setMenuOpen((v) => !v)}
+						aria-label="Toggle menu"
+					>
+						{menuOpen ? <X size={20} /> : <Menu size={20} />}
+					</button>
 				</nav>
+
+				{/* Mobile menu */}
+				<div
+					className="md:hidden overflow-hidden transition-all duration-300 ease-in-out"
+					style={{
+						maxHeight: menuOpen ? "400px" : "0px",
+						opacity: menuOpen ? 1 : 0,
+					}}
+				>
+					<div className="border-t border-border bg-background px-6 py-4 flex flex-col gap-4">
+						{NAV_LINKS.map((link) => (
+							<button
+								key={link.href}
+								onClick={() => scrollTo(link.href)}
+								className="text-left text-base py-1 opacity-70 hover:opacity-100 transition-opacity"
+							>
+								{link.label}
+							</button>
+						))}
+					</div>
+				</div>
 			</header>
 			{/* end nav bar */}
 
@@ -131,10 +233,10 @@ export default function App() {
 			>
 				<div className="flex flex-col gap-8">
 					<p
-						className="text-xs tracking-widest uppercase opacity-50"
+						className="text-sm tracking-widest uppercase opacity-50"
 						style={{ fontFamily: "'JetBrains Mono', monospace" }}
 					>
-						Computer Science & Engineering, Class of 2028
+						Cambridge, MA · Computer Science & Engineering
 					</p>
 					<h1
 						className="text-5xl md:text-8xl font-semibold leading-none tracking-tight"
@@ -142,34 +244,51 @@ export default function App() {
 					>
 						Vivian Ye
 					</h1>
-					<p className="text-lg md:text-xl max-w-xl opacity-70 leading-relaxed font-light">
-						I'm a rising junior at MIT interested in building and
-						reasoning about software and hardware systems.
+					<p className="text-lg md:text-xl max-w-2xl opacity-70 leading-relaxed font-light">
+						I'm a computer science and engineering student working
+						on projects across the computing stack, from FPGA
+						accelerators and transportation research to full-stack
+						software.
 					</p>
-					<div className="flex items-center gap-6 pt-2">
-						<a
-							href="mailto:yevivian@mit.edu"
-							className="inline-flex items-center gap-2 text-sm border border-foreground px-5 py-2.5 hover:bg-foreground hover:text-background transition-colors duration-200"
-						>
-							<Mail size={13} />
-							Email me!
-						</a>
-						<div className="flex items-center gap-4 opacity-50">
+					<div className="flex items-center gap-4 opacity-50">
+						{[
+							{
+								icon: <IoMail size={18} />,
+								label: "Email",
+								href: "mailto:alex@mit.edu",
+							},
+							{
+								icon: <FaLinkedin size={18} />,
+								label: "LinkedIn",
+								href: "#",
+							},
+							{
+								icon: <FaGithub size={18} />,
+								label: "GitHub",
+								href: "#",
+							},
+						].map(({ icon, label, href }) => (
 							<a
-								href="#"
-								className="hover:opacity-100 transition-opacity"
-								aria-label="Github"
+								key={label}
+								href={href}
+								aria-label={label}
+								target="_blank"
+								rel="noopener noreferrer"
+								// className="hover:opacity-100 transition-opacity"
+								className="flex flex-col items-center gap-1.5 opacity-80 hover:opacity-100 transition-opacity"
 							>
-								<FaGithub size={17} />
+								{icon}
+								<span
+									className="text-xs"
+									style={{
+										fontFamily:
+											"'JetBrains Mono', monospace",
+									}}
+								>
+									{label}
+								</span>
 							</a>
-							<a
-								href="#"
-								className="hover:opacity-100 transition-opacity"
-								aria-label="Linkedin"
-							>
-								<FaLinkedin size={17} />
-							</a>
-						</div>
+						))}
 					</div>
 				</div>
 			</section>
@@ -186,7 +305,7 @@ export default function App() {
 				className="max-w-6xl mx-auto px-6 py-20 md:py-28"
 			>
 				<SectionLabel number="0" label="Projects" />
-				<div className="mt-12 divide-y divide-border">
+				<div className="mt-8 divide-y divide-border">
 					{PROJECTS.map((p) => (
 						<div
 							key={p.key}
@@ -195,40 +314,39 @@ export default function App() {
 						>
 							{/* title and description column*/}
 							<div className="flex flex-col gap-3">
-								<div className="flex items-start gap-4">
-									<div className="flex flex-col gap-2">
-										<h3
-											className="text-xl md:text-2xl font-semibold leading-tight max-w-2xl"
-											style={{
-												fontFamily:
-													"'Playfair Display', serif",
-											}}
-										>
-											{p.title}
-										</h3>
-										<p className="text-md opacity-60 leading-relaxed font-light max-w-xl">
-											{p.desc}
-										</p>
-										<div className="flex flex-wrap gap-2 pt-1">
-											{p.tags.map((t) => (
-												<span
-													key={t}
-													className="text-xs px-2 py-0.5 border border-border opacity-60"
-													style={{
-														fontFamily:
-															"'JetBrains Mono', monospace",
-													}}
-												>
-													{t}
-												</span>
-											))}
-										</div>
+								<div className="flex flex-col gap-2">
+									<h3
+										className="text-xl md:text-2xl font-semibold leading-tight max-w-2xl"
+										style={{
+											fontFamily:
+												"'Playfair Display', serif",
+										}}
+									>
+										{p.title}
+									</h3>
+									<p className="text-md opacity-60 leading-relaxed font-light max-w-xl">
+										{p.desc}
+									</p>
+									{/*tags */}
+									<div className="flex flex-wrap gap-2 pt-1">
+										{p.tags.map((t) => (
+											<span
+												key={t}
+												className="text-xs px-2 py-0.5 border border-border opacity-60"
+												style={{
+													fontFamily:
+														"'JetBrains Mono', monospace",
+												}}
+											>
+												{t}
+											</span>
+										))}
 									</div>
 								</div>
 							</div>
 
 							{/* date and link column*/}
-							<div className="flex items-center justify-end gap-4 md:flex-col md:items-end md:gap-2 pl-10 md:pl-0">
+							<div className="flex flex-col items-end justify-end gap-4 md:flex-col md:items-end md:gap-2 pl-10 md:pl-0">
 								<span
 									className="text-sm opacity-30"
 									style={{
@@ -238,12 +356,23 @@ export default function App() {
 								>
 									{p.year}
 								</span>
-								<a
-									href={p.link}
-									className="inline-flex items-center gap-1 text-xs opacity-40 group-hover:opacity-80 transition-opacity"
-								>
-									See More <ArrowUpRight size={10} />
-								</a>
+								{/*resources */}
+								{p.resources.length > 0 && (
+									<div className="flex flex-row md:flex-col items-end gap-4 pt-2">
+										{p.resources.map((r) => (
+											<a
+												key={r.label}
+												href={r.href}
+												target="_blank"
+												rel="noopener noreferrer"
+												className="inline-flex items-center gap-1 text-xs opacity-40 hover:opacity-80 transition-opacity"
+											>
+												{r.label}
+												<ArrowUpRight size={10} />
+											</a>
+										))}
+									</div>
+								)}
 							</div>
 						</div>
 					))}
@@ -261,8 +390,8 @@ export default function App() {
 				id="experience"
 				className="max-w-6xl mx-auto px-6 py-20 md:py-28"
 			>
-				<SectionLabel number="0" label="Experience" />
-				<div className="mt-12 divide-y divide-border">
+				<SectionLabel number="1" label="Experience" />
+				<div className="mt-8 divide-y divide-border">
 					{EXPERIENCES.map((e) => (
 						<div
 							key={e.key}
@@ -270,49 +399,47 @@ export default function App() {
 						>
 							{/* title and description column*/}
 							<div className="flex flex-col gap-3">
-								<div className="flex items-start gap-4">
-									<div className="flex flex-col gap-2">
-										<p
-											className="text-xs tracking-widest uppercase opacity-50"
-											style={{
-												fontFamily:
-													"'JetBrains Mono', monospace",
-											}}
-										>
-											{e.company}
-										</p>
-										<h3
-											className="text-xl md:text-2xl font-semibold leading-tight max-w-2xl"
-											style={{
-												fontFamily:
-													"'Playfair Display', serif",
-											}}
-										>
-											{e.title}
-										</h3>
-										<p className="text-md opacity-60 leading-relaxed font-light max-w-xl">
-											{e.desc}
-										</p>
-										<div className="flex flex-wrap gap-2 pt-1">
-											{e.tags.map((t) => (
-												<span
-													key={t}
-													className="text-xs px-2 py-0.5 border border-border opacity-60"
-													style={{
-														fontFamily:
-															"'JetBrains Mono', monospace",
-													}}
-												>
-													{t}
-												</span>
-											))}
-										</div>
+								<div className="flex flex-col gap-2">
+									<p
+										className="text-xs tracking-widest uppercase opacity-50"
+										style={{
+											fontFamily:
+												"'JetBrains Mono', monospace",
+										}}
+									>
+										{e.company}
+									</p>
+									<h3
+										className="text-xl md:text-2xl font-semibold leading-tight max-w-2xl"
+										style={{
+											fontFamily:
+												"'Playfair Display', serif",
+										}}
+									>
+										{e.title}
+									</h3>
+									<p className="text-md opacity-60 leading-relaxed font-light max-w-xl">
+										{e.desc}
+									</p>
+									<div className="flex flex-wrap gap-2 pt-1">
+										{e.tags.map((t) => (
+											<span
+												key={t}
+												className="text-xs px-2 py-0.5 border border-border opacity-60"
+												style={{
+													fontFamily:
+														"'JetBrains Mono', monospace",
+												}}
+											>
+												{t}
+											</span>
+										))}
 									</div>
 								</div>
 							</div>
 
-							{/* date and link column*/}
-							<div className="flex items-center gap-4 md:flex-col md:items-end md:gap-2 pl-10 md:pl-0">
+							{/* date column*/}
+							<div className="flex items-center justify-end gap-4 md:flex-col md:items-end md:gap-2 pl-10 md:pl-0">
 								<span
 									className="text-sm opacity-30"
 									style={{
@@ -328,6 +455,169 @@ export default function App() {
 				</div>
 			</section>
 			{/* end experience */}
+
+			{/* Divider yay */}
+			<div className="max-w-6xl mx-auto px-6">
+				<div className="border-t border-border" />
+			</div>
+
+			{/*blog */}
+			<section
+				id="thoughts"
+				className="max-w-6xl mx-auto px-6 py-20 md:py-28"
+			>
+				<SectionLabel number="1" label="Thoughts" />
+				<div className="mt-8 divide-y divide-border">
+					<p className="text-base leading-relaxed opacity-70 font-light">
+						I do not yet have thoughts but I hope to have them soon
+						and to put them here soon... stay tuned!
+					</p>
+				</div>
+			</section>
+			{/* end blog */}
+
+			{/* Divider yay */}
+			<div className="max-w-6xl mx-auto px-6">
+				<div className="border-t border-border" />
+			</div>
+
+			{/* about me */}
+			<section
+				id="about"
+				className="max-w-6xl mx-auto px-6 py-20 md:py-28"
+			>
+				<SectionLabel number="2" label="About" />
+				<div className="mt-8 grid grid-cols-1 md:grid-cols-[1fr_400px] gap-16">
+					<div className="flex flex-col gap-8">
+						<p className="text-base leading-relaxed opacity-70 font-light">
+							I'm a (rising) third-year CS student at MIT. My
+							interests lie at the intersection of computer
+							architecture, digial systems, and low-level
+							software. I enjoy thinking about how data moves
+							through layers of abstraction; from high-level code
+							to assembly instructinos and binary representations,
+							and how processors and pipelines are created and
+							adapted to bring these systems to life.
+						</p>
+						<p className="text-base leading-relaxed opacity-70 font-light">
+							I'm excited to continue exploring these ideas
+							through research and engineering work, and hope to
+							get the chance to design systems that connect
+							software with underlying hardware.
+						</p>
+						<p className="text-base leading-relaxed opacity-70 font-light">
+							Outside of academics, I spend my free time a variety
+							of ways. somethin somethin
+						</p>
+						{/* <div>
+							<a
+								href="#"
+								className="inline-flex items-center gap-2 text-sm border border-foreground px-5 py-2.5 hover:bg-foreground hover:text-background transition-colors duration-200"
+							>
+								Download Resume <ArrowUpRight size={14} />
+							</a>
+						</div> */}
+
+						{/* Education */}
+						{/* <div className="flex flex-col gap-4">
+							<h3
+								className="text-xs tracking-widest uppercase opacity-40"
+								style={{
+									fontFamily: "'JetBrains Mono', monospace",
+								}}
+							>
+								Education
+							</h3>
+							<div className="flex flex-col gap-1">
+								<div className="flex items-baseline justify-between">
+									<span className="font-medium">
+										Massachusetts Institute of Technology
+									</span>
+									<span
+										className="text-xs opacity-40"
+										style={{
+											fontFamily:
+												"'JetBrainsMono', monospace",
+										}}
+									>
+										2024-2028
+									</span>
+								</div>
+								<span className="text-sm opacity-55">
+									B.S in Computer Science and Engineering
+									(6-3)
+								</span>
+							</div>
+						</div> */}
+						{/* end education */}
+					</div>
+
+					<div className="flex flex-col gap-6">
+						{/* Currently */}
+						<section className="flex flex-col gap-4">
+							<h3
+								className="text-sm md:text-sm tracking-widest uppercase opacity-40"
+								style={{
+									fontFamily: "'JetBrains Mono', monospace",
+								}}
+							>
+								Currently
+							</h3>
+							<ul className="flex flex-col gap-3 text-sm opacity-60 font-light">
+								<li>
+									→ Rediscovering my love for{" "}
+									<a
+										href="https://setwithfriends.com"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="font-[400] hover:opacity-70 transition-opacity"
+									>
+										setwithfriends
+									</a>
+									.
+								</li>
+								<li>
+									→ Playing summer league frisbee in the
+									evenings.
+								</li>
+								<li>
+									→ Learning Noah Kahan songs on the guitar.
+								</li>
+								<li>
+									→ Experiencing Boston summer for the first
+									time.
+								</li>
+							</ul>
+						</section>
+						{/* Skills */}
+						<div className="flex flex-col gap-3 pt-4 border-t border-border max-w-sm">
+							<h3
+								className="text-sm md:text-sm tracking-widest uppercase opacity-40"
+								style={{
+									fontFamily: "'JetBrains Mono', monospace",
+								}}
+							>
+								Skills
+							</h3>
+							<div className="flex flex-wrap gap-2">
+								{SKILLS.map((s) => (
+									<span
+										key={s}
+										className="text-xs px-3 py-1.5 bg-secondary border border-border"
+										style={{
+											fontFamily:
+												"'JetBrains Mono', monospace",
+										}}
+									>
+										{s}
+									</span>
+								))}
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			{/* end about */}
 
 			{/** end  entire div of the website*/}
 		</div>
