@@ -31,7 +31,7 @@ const PROJECTS = [
 		num: "00",
 		key: "proj-00",
 		title: "PEEP: An Image is Worth 16x16 Tiles",
-		tags: ["FPGA", "SystemVerilog"],
+		tags: ["FPGA", "SystemVerilog", "Computer Architecture"],
 		year: "2025",
 		desc: "A quad-core processor specially designed for computer vision workloads. It takes advantage of parallel combinational memory reads and parallelizable properties of image processing tasks in its design of parallel processor cores and square memory caches. Final project for Digital Systems Laboratory I.",
 		resources: [
@@ -72,7 +72,7 @@ const EXPERIENCES = [
 		company: "Chewy",
 		tags: ["Typescript", "React", "ERPNext", "Git"],
 		year: "Summer 2026",
-		desc: `As an intern on Chewy's CPH (Chewy Partner Hub) team, I'm currently building a new Vendor Resources Center, a centralized hub
+		desc: `As an intern on Chewy's CPH (Chewy Partner Hub) team, I'm building a centralized hub
 			for vendor documentation within Chewy's internal vendor onboarding platform. I'm implementing the feature across the full
 			stack, developing React frontend components, Python backend APIs, and the underlying business logic.`,
 	},
@@ -101,7 +101,7 @@ const EXPERIENCES = [
 				project,{" "}
 				<a
 					href="#proj-01"
-					className="font-[400] underline decoration-1 underline-offset-2 hover:opacity-70 transition-opacity"
+					className="font-[400] opacity-100 hover:opacity-70 transition-opacity"
 				>
 					R5-ST
 				</a>
@@ -118,8 +118,8 @@ const EXPERIENCES = [
 		company: "MIT Department of EECS",
 		tags: ["Minispec", "Digital Systems", "Processor Design", "Teaching"],
 		year: "Fall 2025",
-		desc: `Guided ~100 students through debugging complex Minispec labs during office hours. Helped students 
-		understand digital system design, finite state machines, and processor datapaths.`,
+		desc: `I held weekly office hours where I guided students through the debugging of complex Minispec labs. 
+		I helped students better understand digital system design, finite state machines, and processor datapaths.`,
 	},
 ];
 
@@ -236,7 +236,7 @@ export default function App() {
 						className="text-sm tracking-widest uppercase opacity-50"
 						style={{ fontFamily: "'JetBrains Mono', monospace" }}
 					>
-						Cambridge, MA · Computer Science & Engineering
+						Computer Science & Engineering · MIT
 					</p>
 					<h1
 						className="text-5xl md:text-8xl font-semibold leading-none tracking-tight"
@@ -245,10 +245,11 @@ export default function App() {
 						Vivian Ye
 					</h1>
 					<p className="text-lg md:text-xl max-w-2xl opacity-70 leading-relaxed font-light">
-						I'm a computer science and engineering student working
-						on projects across the computing stack, from FPGA
-						accelerators and transportation research to full-stack
-						software.
+						I'm a student working on projects across the computing
+						stack, from FPGA accelerators and transportation
+						research to full-stack software. I enjoy learning new
+						things, teaching others, and documenting what I discover
+						along the way.
 					</p>
 					<div className="flex items-center gap-4 opacity-50">
 						{[
@@ -468,9 +469,8 @@ export default function App() {
 			>
 				<SectionLabel number="1" label="Thoughts" />
 				<div className="mt-8 divide-y divide-border">
-					<p className="text-base leading-relaxed opacity-70 font-light">
-						I do not yet have thoughts but I hope to have them soon
-						and to put them here soon... stay tuned!
+					<p className="text-base leading-relaxed opacity-60 font-light">
+						Coming soon... stay tuned!
 					</p>
 				</div>
 			</section>
@@ -488,68 +488,22 @@ export default function App() {
 			>
 				<SectionLabel number="2" label="About" />
 				<div className="mt-8 grid grid-cols-1 md:grid-cols-[1fr_400px] gap-16">
-					<div className="flex flex-col gap-8">
-						<p className="text-base leading-relaxed opacity-70 font-light">
+					<div className="flex flex-col gap-8 opacity-60">
+						<p className="text-base leading-relaxed font-light">
 							I'm a (rising) third-year CS student at MIT. My
 							interests lie at the intersection of computer
-							architecture, digial systems, and low-level
+							architecture, digital systems, and low-level
 							software. I enjoy thinking about how data moves
 							through layers of abstraction; from high-level code
-							to assembly instructinos and binary representations,
+							to assembly instructions and binary representations,
 							and how processors and pipelines are created and
 							adapted to bring these systems to life.
 						</p>
-						<p className="text-base leading-relaxed opacity-70 font-light">
-							I'm excited to continue exploring these ideas
-							through research and engineering work, and hope to
-							get the chance to design systems that connect
-							software with underlying hardware.
+						<p className="text-base leading-relaxed font-light">
+							Outside of academics, I'm a frisbee player, music
+							enthusiast, amateur photographer, sitcom enjoyer,
+							and noodle fiend.
 						</p>
-						<p className="text-base leading-relaxed opacity-70 font-light">
-							Outside of academics, I spend my free time a variety
-							of ways. somethin somethin
-						</p>
-						{/* <div>
-							<a
-								href="#"
-								className="inline-flex items-center gap-2 text-sm border border-foreground px-5 py-2.5 hover:bg-foreground hover:text-background transition-colors duration-200"
-							>
-								Download Resume <ArrowUpRight size={14} />
-							</a>
-						</div> */}
-
-						{/* Education */}
-						{/* <div className="flex flex-col gap-4">
-							<h3
-								className="text-xs tracking-widest uppercase opacity-40"
-								style={{
-									fontFamily: "'JetBrains Mono', monospace",
-								}}
-							>
-								Education
-							</h3>
-							<div className="flex flex-col gap-1">
-								<div className="flex items-baseline justify-between">
-									<span className="font-medium">
-										Massachusetts Institute of Technology
-									</span>
-									<span
-										className="text-xs opacity-40"
-										style={{
-											fontFamily:
-												"'JetBrainsMono', monospace",
-										}}
-									>
-										2024-2028
-									</span>
-								</div>
-								<span className="text-sm opacity-55">
-									B.S in Computer Science and Engineering
-									(6-3)
-								</span>
-							</div>
-						</div> */}
-						{/* end education */}
 					</div>
 
 					<div className="flex flex-col gap-6">
@@ -603,7 +557,7 @@ export default function App() {
 								{SKILLS.map((s) => (
 									<span
 										key={s}
-										className="text-xs px-3 py-1.5 bg-secondary border border-border"
+										className="text-xs px-3 py-1.5 opacity-60 bg-secondary border border-border"
 										style={{
 											fontFamily:
 												"'JetBrains Mono', monospace",
