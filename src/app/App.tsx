@@ -136,7 +136,7 @@ export default function App() {
 			let current = "";
 			for (const id of sections) {
 				const el = document.getElementById(id);
-				if (el && window.scrollY >= el.offsetTop - 120) current = id;
+				if (el && window.scrollY >= el.offsetTop - 128) current = id;
 			}
 
 			setActiveSection(current);
@@ -229,7 +229,7 @@ export default function App() {
 			{/* Hero section */}
 			<section
 				id="hero"
-				className="max-w-6xl mx-auto px-6 pt-36 pb-24 md:pt-44 md:pb-32"
+				className="max-w-6xl mx-auto px-6 pt-36 pb-20 md:pt-44 md:pb-32"
 			>
 				<div className="flex flex-col gap-8">
 					<p
@@ -303,7 +303,7 @@ export default function App() {
 			{/*Projects */}
 			<section
 				id="projects"
-				className="max-w-6xl mx-auto px-6 py-20 md:py-28"
+				className="max-w-6xl mx-auto px-6 pt-16 pb-4 md:py-28"
 			>
 				<SectionLabel number="0" label="Projects" />
 				<div className="mt-8 divide-y divide-border">
@@ -389,7 +389,7 @@ export default function App() {
 			{/*Experience */}
 			<section
 				id="experience"
-				className="max-w-6xl mx-auto px-6 py-20 md:py-28"
+				className="max-w-6xl mx-auto px-6 pt-16 pb-4 md:py-28"
 			>
 				<SectionLabel number="1" label="Experience" />
 				<div className="mt-8 divide-y divide-border">
@@ -465,7 +465,7 @@ export default function App() {
 			{/*blog */}
 			<section
 				id="thoughts"
-				className="max-w-6xl mx-auto px-6 py-20 md:py-28"
+				className="max-w-6xl mx-auto px-6 pt-16 pb-12 md:py-28"
 			>
 				<SectionLabel number="1" label="Thoughts" />
 				<div className="mt-8 divide-y divide-border">
@@ -484,7 +484,7 @@ export default function App() {
 			{/* about me */}
 			<section
 				id="about"
-				className="max-w-6xl mx-auto px-6 py-20 md:py-28"
+				className="max-w-6xl mx-auto px-6 pt-16 pb-16 md:py-28"
 			>
 				<SectionLabel number="2" label="About" />
 				<div className="mt-8 grid grid-cols-1 md:grid-cols-[1fr_400px] gap-16">
