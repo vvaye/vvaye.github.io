@@ -256,7 +256,7 @@ export default function App() {
 							{
 								icon: <IoMail size={18} />,
 								label: "Email",
-								href: "mailto:alex@mit.edu",
+								href: "mailto:yevivian@mit.edu",
 							},
 							{
 								icon: <FaLinkedin size={18} />,
