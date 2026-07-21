@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 import { ArrowUpRight, X, Menu } from "lucide-react";
+import { Section } from "../app/components/Section";
 
 const NAV_LINKS = [
 	{ label: "Projects", href: "#projects" },
@@ -227,10 +228,7 @@ export default function App() {
 			{/* end nav bar */}
 
 			{/* Hero section */}
-			<section
-				id="hero"
-				className="max-w-6xl mx-auto px-6 pt-36 pb-20 md:pt-44 md:pb-32"
-			>
+			<Section id="hero" className="pt-36 pb-20 md:pt-44 md:pb-32">
 				<div className="flex flex-col gap-8">
 					<p
 						className="text-sm tracking-widest uppercase opacity-50"
@@ -261,12 +259,12 @@ export default function App() {
 							{
 								icon: <FaLinkedin size={18} />,
 								label: "LinkedIn",
-								href: "#",
+								href: "https://linkedin.com/in/yevivian",
 							},
 							{
 								icon: <FaGithub size={18} />,
 								label: "GitHub",
-								href: "#",
+								href: "https://github.com/vvaye",
 							},
 						].map(({ icon, label, href }) => (
 							<a
@@ -292,7 +290,7 @@ export default function App() {
 						))}
 					</div>
 				</div>
-			</section>
+			</Section>
 			{/*endhero */}
 
 			{/* Divider yay */}
@@ -301,10 +299,7 @@ export default function App() {
 			</div>
 
 			{/*Projects */}
-			<section
-				id="projects"
-				className="max-w-6xl mx-auto px-6 pt-16 pb-4 md:py-28"
-			>
+			<Section id="projects" className="pb-4">
 				<SectionLabel number="0" label="Projects" />
 				<div className="mt-8 divide-y divide-border">
 					{PROJECTS.map((p) => (
@@ -378,7 +373,7 @@ export default function App() {
 						</div>
 					))}
 				</div>
-			</section>
+			</Section>
 			{/* end projects */}
 
 			{/* Divider yay */}
@@ -387,10 +382,7 @@ export default function App() {
 			</div>
 
 			{/*Experience */}
-			<section
-				id="experience"
-				className="max-w-6xl mx-auto px-6 pt-16 pb-4 md:py-28"
-			>
+			<Section id="experience" className="pb-4">
 				<SectionLabel number="1" label="Experience" />
 				<div className="mt-8 divide-y divide-border">
 					{EXPERIENCES.map((e) => (
@@ -454,7 +446,7 @@ export default function App() {
 						</div>
 					))}
 				</div>
-			</section>
+			</Section>
 			{/* end experience */}
 
 			{/* Divider yay */}
@@ -463,17 +455,14 @@ export default function App() {
 			</div>
 
 			{/*blog */}
-			<section
-				id="thoughts"
-				className="max-w-6xl mx-auto px-6 pt-16 pb-12 md:py-28"
-			>
+			<Section id="thoughts" className="pb-12">
 				<SectionLabel number="1" label="Thoughts" />
 				<div className="mt-8 divide-y divide-border">
 					<p className="text-base leading-relaxed opacity-60 font-light">
 						Coming soon... stay tuned!
 					</p>
 				</div>
-			</section>
+			</Section>
 			{/* end blog */}
 
 			{/* Divider yay */}
@@ -482,10 +471,7 @@ export default function App() {
 			</div>
 
 			{/* about me */}
-			<section
-				id="about"
-				className="max-w-6xl mx-auto px-6 pt-16 pb-16 md:py-28"
-			>
+			<Section id="about" className="pb-16">
 				<SectionLabel number="2" label="About" />
 				<div className="mt-8 grid grid-cols-1 md:grid-cols-[1fr_400px] gap-16">
 					<div className="flex flex-col gap-8 opacity-60">
@@ -570,7 +556,7 @@ export default function App() {
 						</div>
 					</div>
 				</div>
-			</section>
+			</Section>
 			{/* end about */}
 
 			{/** end  entire div of the website*/}
