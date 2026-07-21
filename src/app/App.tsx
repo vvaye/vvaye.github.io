@@ -237,7 +237,7 @@ export default function App() {
 						Computer Science & Engineering · MIT
 					</p>
 					<h1
-						className="text-5xl md:text-8xl font-semibold leading-none tracking-tight"
+						className="text-7xl md:text-8xl font-semibold leading-none tracking-tight"
 						style={{ fontFamily: "'Playfair Display', serif" }}
 					>
 						Vivian Ye
